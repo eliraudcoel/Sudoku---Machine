@@ -29,7 +29,7 @@ namespace Sudoku
 
             //Print result
             Console.WriteLine("Sudoku Solution:");
-            sudoku.PrintGrid();
+            sudoku.afficherSudoku();
 
             //Stop
             Console.ReadLine();

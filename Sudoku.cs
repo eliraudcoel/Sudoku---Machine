@@ -16,19 +16,18 @@ namespace Sudoku
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// This method is designed to print the grid
-        /// is missing from the given line.
-        /// </summary>
-        public void PrintGrid()
+        
+        /* Méthode d'affichage du sudoku */
+        public void afficherSudoku()
         {
+            // les "--" permettent de spérer les lignes 
             Console.WriteLine(" -----------------");
 
             for (var line = 0; line < 9; line++)
             {
                 for (var row = 0; row < 9; row++)
                 {
+                    // les "|" permettent de séparer les valeurs et de former les colonnes
                     Console.Write("|{0}{1}", Grid[line][row], row == 8 ? "|" : "");
                 }
 
@@ -36,51 +35,36 @@ namespace Sudoku
                 if ((line + 1) % 3 == 0)
                     Console.WriteLine(" -----------------");
             }
-
-            Console.WriteLine("\n\n");
         }
 
-        /// <summary>
-        /// This method is designed to check if the given value
-        /// is missing from the given line.
-        /// </summary>
-        /// <param name="value"> Value to check</param>
-        /// <param name="line"> Line to iterate</param>
-        public bool isMissingOnLine(int value, int line)
+        /* Méthode Absent sur la ligne */
+        // on récupère  la valeur à tester et la ligne correspondante
+        public bool absentLigne(int valeur, int ligne)
         {
-            for (var row = 0; row < 9; row++)
+            for (var colonne = 0; colonne < 9; colonne++)
             {
-                if (Grid[line][row] == value)
+                if (Grid[ligne][colonne] == valeur)
                     return false;
             }
 
             return true;
         }
 
-        /// <summary>
-        /// This method is designed to check if the given value
-        /// is missing from the given row.
-        /// </summary>
-        /// <param name="value"> Value to check</param>
-        /// <param name="row"> Row to iterate</param>
-        public bool isMissingOnColumn(int value, int row)
+        /* Méthode Absent sur la colonne */
+        // on récupère  la valeur à tester et la colonne correspondante
+        public bool absentColonne(int valeur, int colonne)
         {
-            for (var line = 0; line < 9; line++)
+            for (var ligne = 0; ligne < 9; ligne++)
             {
-                if (Grid[line][row] == value)
+                if (Grid[ligne][colonne] == valeur)
                     return false;
             }
 
             return true;   
         }
 
-        /// <summary>
-        /// This method is designed to check if the given value
-        /// is missing from the given Block.
-        /// </summary>
-        /// <param name="value"> Value to check</param>
-        /// <param name="line"> Line to iterate</param>
-        /// <param name="row"> Row to iterate</param>
+        /* Méthode Absent dans la région */
+        // on récupère  la valeur à tester, la colonne et la ligne correspondantes
         public bool isMissingOnBlock(int value, int line, int row)
         {
             int _line = line - (line % 3), _row = row - (row % 3);
@@ -117,7 +101,7 @@ namespace Sudoku
 
                 for (var value = 1; value <= 9; value++)
                 {
-                    if (!isMissingOnLine(value, line) || !isMissingOnColumn(value, row) || !isMissingOnBlock(value, line, row))
+                    if (!absentLigne(value, line) || !absentColonne(value, row) || !isMissingOnBlock(value, line, row))
                         continue;
                     Grid[line][row] = value;
 
