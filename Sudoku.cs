@@ -41,12 +41,15 @@ namespace Sudoku
         // on récupère  la valeur à tester et la ligne correspondante
         public bool absentLigne(int valeur, int ligne)
         {
+            // On boucle sur les colonnes de 0 à 9
             for (var colonne = 0; colonne < 9; colonne++)
             {
+                // Si la valeur correspond, on retourne false
                 if (Grid[ligne][colonne] == valeur)
                     return false;
             }
 
+            // Sinon on retourne true
             return true;
         }
 
@@ -54,63 +57,77 @@ namespace Sudoku
         // on récupère  la valeur à tester et la colonne correspondante
         public bool absentColonne(int valeur, int colonne)
         {
+            // On boucle sur les lignes de 0 à 9
             for (var ligne = 0; ligne < 9; ligne++)
             {
+                // Si la valeur correspond, on retourne false
                 if (Grid[ligne][colonne] == valeur)
                     return false;
             }
 
+            // Sinon on retourne true
             return true;   
         }
 
         /* Méthode Absent dans la région */
         // on récupère  la valeur à tester, la colonne et la ligne correspondantes
-        public bool isMissingOnBlock(int value, int line, int row)
+        public bool absentRegion(int valeur, int ligne, int colonne)
         {
-            int _line = line - (line % 3), _row = row - (row % 3);
-            for (line = _line; line < _line + 3; line++)
+            int _ligne = ligne - (ligne % 3), _colonne = colonne - (colonne % 3);
+            for (ligne = _ligne; ligne < _ligne + 3; ligne++)
             {
-                for (row = _row; row < _row + 3; row++)
+                for (colonne = _colonne; colonne < _colonne + 3; colonne++)
                 {
-                    if (Grid[line][row] == value)
+                    if (Grid[ligne][colonne] == valeur)
                         return false;
                 }
             }
 
             return true;
         }
-
-        /// <summary>
-        /// This method check is the Grid appear to be valid.
-        /// </summary>
-        /// <param name="position"> Check position</param>
-        public bool isValid(int position)
+        
+        /* Méthode vérifiant la validité de la valeur à la position donnée */
+        // On récupère la position 
+        public bool estValide(int position)
         {
+            // Boucle qui effectue le programme jusqu'à ce qu'on ai "true"
             while (true)
             {
+                // Si la position est la dernière valeur du Sudoku alors on arrête la boucle
                 if (position == (9 * 9))
                     return true;
 
-                int line = (position / 9), row = (position % 9);
+                // On récupère la ligne et la colonne par rapport à la position que l'on a en paramètre
+                int ligne = (position / 9);
+                int colonne = (position % 9);
 
-                if (Grid[line][row] != 0)
+                // Si à la position donnée on a autre chose que 0 on continue
+                if (Grid[ligne][colonne] != 0)
                 {
                     position = (position + 1);
                     continue;
                 }
 
-                for (var value = 1; value <= 9; value++)
+                // On boucle sur les nombres possibles
+                for (var valeurPossible = 1; valeurPossible <= 9; valeurPossible++)
                 {
-                    if (!absentLigne(value, line) || !absentColonne(value, row) || !isMissingOnBlock(value, line, row))
+                    // On teste si la valeur n'est pas présente en ligne en colonne ou dans la région
+                    if (!absentLigne(valeurPossible, ligne) || !absentColonne(valeurPossible, colonne) || !absentRegion(valeurPossible, ligne, colonne))
                         continue;
-                    Grid[line][row] = value;
 
-                    if (isValid(position + 1))
+                    // Si c'est bon on remplace la valeur dans le Sudoku
+                    Grid[ligne][colonne] = valeurPossible;
+
+                    // On boucle sur les autre positions
+                    if (estValide(position + 1))
                         return true;
                 }
 
-                Grid[line][row] = 0;
+                // En faisant "continue" on arrive ici
+                // On met à "0" le sudoku à la position donnée
+                Grid[ligne][colonne] = 0;
 
+                // On retourne false à chaque fois pour que la boucle continue
                 return false;
             }
         }

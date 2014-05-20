@@ -25,7 +25,7 @@ namespace Sudoku
             var sudoku = new Sudoku(input);
 
             //Resolve Sudoku
-            sudoku.isValid(0);
+            sudoku.estValide(0);
 
             //Print result
             Console.WriteLine("Sudoku Solution:");
