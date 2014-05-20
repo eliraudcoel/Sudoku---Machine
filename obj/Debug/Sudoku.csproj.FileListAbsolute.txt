@@ -1,0 +1,6 @@
+C:\Users\Emmanuelle\Downloads\Sudoku\Sudoku\bin\Debug\SUdoku.exe.config
+C:\Users\Emmanuelle\Downloads\Sudoku\Sudoku\bin\Debug\SUdoku.exe
+C:\Users\Emmanuelle\Downloads\Sudoku\Sudoku\bin\Debug\SUdoku.pdb
+C:\Users\Emmanuelle\Downloads\Sudoku\Sudoku\obj\Debug\Sudoku.csprojResolveAssemblyReference.cache
+C:\Users\Emmanuelle\Downloads\Sudoku\Sudoku\obj\Debug\SUdoku.exe
+C:\Users\Emmanuelle\Downloads\Sudoku\Sudoku\obj\Debug\SUdoku.pdb
