@@ -6,11 +6,13 @@ namespace Sudoku
     {
         #region Initialization
 
+        /* Constructeur */
         public Sudoku(int[][] grid)
         {
             Grid = grid;
         }
 
+        // On veut que le tableau à 2 dimensions ne soit que en lecture
         private readonly int[][] Grid;
 
         #endregion
@@ -73,11 +75,15 @@ namespace Sudoku
         // on récupère  la valeur à tester, la colonne et la ligne correspondantes
         public bool absentRegion(int valeur, int ligne, int colonne)
         {
-            int _ligne = ligne - (ligne % 3), _colonne = colonne - (colonne % 3);
+            // On récupère la preière ligne et colonne de la région
+            int _ligne = ligne - (ligne % 3);
+            int _colonne = colonne - (colonne % 3);
+            
             for (ligne = _ligne; ligne < _ligne + 3; ligne++)
             {
                 for (colonne = _colonne; colonne < _colonne + 3; colonne++)
                 {
+                    // Si la valeur correspond, on retourne false
                     if (Grid[ligne][colonne] == valeur)
                         return false;
                 }

@@ -6,8 +6,7 @@ namespace Sudoku
     {
         static void Main(string[] args)
         {
-            //todo: Voir pour récupérer en entrée un sudoku, on en discutera ensemble mais sinon je pensais à un string que l'on split ensuite
-            //todo: Par exemple: 0_6_0_2_0_0_0_0_5
+            // Voir un sudoku par un fichier
             var input = new[]
             {
                 new[] { 0, 6, 0, 2, 0, 0, 0, 0, 5 },
