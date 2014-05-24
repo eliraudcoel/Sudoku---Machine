@@ -21,17 +21,17 @@ namespace Sudoku
                 new[] { 4, 0, 0, 0, 0, 1, 0, 8, 0 }
             };
 
-            //Instanciate Sudoku
+            // On définit un objet de type "Sudoku"
             var sudoku = new Sudoku(input);
 
-            //Resolve Sudoku
+            // On démarre la résolution en commencant par 0
             sudoku.estValide(0);
 
-            //Print result
+            // On affiche le Sudoku Finale
             Console.WriteLine("Sudoku Solution:");
             sudoku.afficherSudoku();
 
-            //Stop
+            // On stoppe le programme
             Console.ReadLine();
         }
     }
