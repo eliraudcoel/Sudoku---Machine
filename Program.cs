@@ -24,11 +24,21 @@ namespace Sudoku
             var sudoku = new Sudoku(input);
 
             // On démarre la résolution en commencant par 0
-            sudoku.estValide(0);
+            //sudoku.estValide(0);
 
             // On affiche le Sudoku Finale
-            Console.WriteLine("Sudoku Solution:");
-            sudoku.afficherSudoku();
+            //Console.WriteLine("Sudoku Solution:");
+            //sudoku.afficherSudoku();
+
+            int num_colonne = sudoku.compterChiffresColonne();
+            Console.WriteLine("Compter colonne :" + num_colonne);
+
+            int num_ligne = sudoku.compterChiffresLigne();
+            Console.WriteLine("Compter ligne :" + num_ligne);
+
+            int[] num_region = sudoku.compterChiffresRegion();
+            Console.WriteLine("Compter région, ligne :" + num_region[0] + "et colonne :" + num_region[1]);
+
 
             // On stoppe le programme
             Console.ReadLine();
