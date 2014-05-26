@@ -22,23 +22,43 @@ namespace Sudoku
 
             // On définit un objet de type "Sudoku"
             var sudoku = new Sudoku(input);
+            sudoku.afficherSudoku();
 
-            // On démarre la résolution en commencant par 0
-            //sudoku.estValide(0);
+            Console.WriteLine("Quelle solution voulez-vous?");
+            Console.WriteLine("1. Par solution humaine");
+            Console.WriteLine("2. Par solution machine");
+            String solution_choisie = Console.ReadLine();
 
-            // On affiche le Sudoku Finale
-            //Console.WriteLine("Sudoku Solution:");
-            //sudoku.afficherSudoku();
+            if (solution_choisie == "1") 
+            {
+                /*
+                int num_colonne = sudoku.compterChiffresColonne();
+                Console.WriteLine("Compter colonne :" + num_colonne);
 
-            int num_colonne = sudoku.compterChiffresColonne();
-            Console.WriteLine("Compter colonne :" + num_colonne);
+                int num_ligne = sudoku.compterChiffresLigne();
+                Console.WriteLine("Compter ligne :" + num_ligne);
 
-            int num_ligne = sudoku.compterChiffresLigne();
-            Console.WriteLine("Compter ligne :" + num_ligne);
+                int[] num_region = sudoku.compterChiffresRegion();
+                Console.WriteLine("Compter région, ligne :" + num_region[0] + "et colonne :" + num_region[1]);
+                 */
+            }
 
-            int[] num_region = sudoku.compterChiffresRegion();
-            Console.WriteLine("Compter région, ligne :" + num_region[0] + "et colonne :" + num_region[1]);
+            if (solution_choisie == "2")
+            {
+                DateTime start = DateTime.Now;
+                
+                // On démarre la résolution en commencant par 0
+                sudoku.estValide(0);
 
+                DateTime end = DateTime.Now;
+
+                TimeSpan tps_total = end - start;
+
+                // On affiche le Sudoku Finale
+                Console.WriteLine("Temps d'exécution : "+ tps_total.Seconds + "s " + tps_total.Milliseconds +"ms");
+                Console.WriteLine("Sudoku Solution Machine :");
+                sudoku.afficherSudoku();                
+            }
 
             // On stoppe le programme
             Console.ReadLine();
