@@ -7,13 +7,14 @@ namespace Sudoku
         #region Initialization
 
         /* Constructeur */
-        public Sudoku(int[][] grid)
+        public Sudoku(int[][] sudoku)
         {
-            Grid = grid;
+            Tableau_Sudoku = sudoku;
         }
 
         // On veut que le tableau à 2 dimensions ne soit que en lecture
-        private readonly int[][] Grid;
+        // On va l'utiliser pour éviter de le mettre en paramètre
+        private readonly int[][] Tableau_Sudoku;
 
         #endregion
 
@@ -30,7 +31,7 @@ namespace Sudoku
                 for (var row = 0; row < 9; row++)
                 {
                     // les "|" permettent de séparer les valeurs et de former les colonnes
-                    Console.Write("|{0}{1}", Grid[line][row], row == 8 ? "|" : "");
+                    Console.Write("|{0}{1}", Tableau_Sudoku[line][row], row == 8 ? "|" : "");
                 }
 
                 Console.Write("\n");
@@ -41,13 +42,13 @@ namespace Sudoku
 
         /* Méthode Absent sur la ligne */
         // on récupère  la valeur à tester et la ligne correspondante
-        public bool absentLigne(int valeur, int ligne)
+        public bool absentSurLaLigne(int valeur, int ligne)
         {
             // On boucle sur les colonnes de 0 à 9
             for (var colonne = 0; colonne < 9; colonne++)
             {
                 // Si la valeur correspond, on retourne false
-                if (Grid[ligne][colonne] == valeur)
+                if (Tableau_Sudoku[ligne][colonne] == valeur)
                     return false;
             }
 
@@ -57,13 +58,13 @@ namespace Sudoku
 
         /* Méthode Absent sur la colonne */
         // on récupère  la valeur à tester et la colonne correspondante
-        public bool absentColonne(int valeur, int colonne)
+        public bool absentSurLaColonne(int valeur, int colonne)
         {
             // On boucle sur les lignes de 0 à 9
             for (var ligne = 0; ligne < 9; ligne++)
             {
                 // Si la valeur correspond, on retourne false
-                if (Grid[ligne][colonne] == valeur)
+                if (Tableau_Sudoku[ligne][colonne] == valeur)
                     return false;
             }
 
@@ -73,7 +74,7 @@ namespace Sudoku
 
         /* Méthode Absent dans la région */
         // on récupère  la valeur à tester, la colonne et la ligne correspondantes
-        public bool absentRegion(int valeur, int ligne, int colonne)
+        public bool absentDeLaRegion(int valeur, int ligne, int colonne)
         {
             // On récupère la preière ligne et colonne de la région
             int _ligne = ligne - (ligne % 3);
@@ -84,7 +85,7 @@ namespace Sudoku
                 for (colonne = _colonne; colonne < _colonne + 3; colonne++)
                 {
                     // Si la valeur correspond, on retourne false
-                    if (Grid[ligne][colonne] == valeur)
+                    if (Tableau_Sudoku[ligne][colonne] == valeur)
                         return false;
                 }
             }
@@ -108,7 +109,7 @@ namespace Sudoku
                 int colonne = (position % 9);
 
                 // Si à la position donnée on a autre chose que 0 on continue
-                if (Grid[ligne][colonne] != 0)
+                if (Tableau_Sudoku[ligne][colonne] != 0)
                 {
                     position = (position + 1);
                     continue;
@@ -118,11 +119,11 @@ namespace Sudoku
                 for (var valeurPossible = 1; valeurPossible <= 9; valeurPossible++)
                 {
                     // On teste si la valeur n'est pas présente en ligne en colonne ou dans la région
-                    if (!absentLigne(valeurPossible, ligne) || !absentColonne(valeurPossible, colonne) || !absentRegion(valeurPossible, ligne, colonne))
+                    if (!absentSurLaLigne(valeurPossible, ligne) || !absentSurLaColonne(valeurPossible, colonne) || !absentDeLaRegion(valeurPossible, ligne, colonne))
                         continue;
 
                     // Si c'est bon on remplace la valeur dans le Sudoku
-                    Grid[ligne][colonne] = valeurPossible;
+                    Tableau_Sudoku[ligne][colonne] = valeurPossible;
 
                     // On boucle sur les autre positions
                     if (estValide(position + 1))
@@ -131,7 +132,7 @@ namespace Sudoku
 
                 // En faisant "continue" on arrive ici
                 // On met à "0" le sudoku à la position donnée
-                Grid[ligne][colonne] = 0;
+                Tableau_Sudoku[ligne][colonne] = 0;
 
                 // On retourne false à chaque fois pour que la boucle continue
                 return false;
