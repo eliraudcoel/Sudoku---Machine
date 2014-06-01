@@ -2,12 +2,12 @@
 
 namespace Sudoku
 {
-    public class Sudoku
+    public class SudokuMachine
     {
         #region Initialization
 
         /* Constructeur */
-        public Sudoku(int[][] sudoku)
+        public SudokuMachine(int[][] sudoku)
         {
             Tableau_Sudoku = sudoku;
         }
@@ -93,114 +93,6 @@ namespace Sudoku
             return true;
         }
 
-        /* Méthode pour compter les chiffres dans les lignes */
-        public int compterChiffresLigne()
-        {
-            int cptmax = 0;
-            int cpt = 0;
-            int i, j;
-            int numligne = 0;
-
-            for (i = 0; i < 9; i++)
-            {
-
-                for (j = 0; j < 9; j++)
-                {
-                    //comptage des chiffres != 0
-                    if (Tableau_Sudoku[i][j] != 0)
-                        cpt++;
-                }
-
-                Console.WriteLine("cpt=" + cpt);
-
-                if (cpt > cptmax)
-                {
-                    //sauvegarde  de la + grande qté de chiffres
-                    cptmax = cpt;
-                    //sauvegarde du numéro de ligne qui a le + de chiffres
-                    numligne = i;
-                }
-
-                cpt = 0;
-            }
-
-            //retour numéro de ligne qui a le plus de chiffres
-            return numligne;
-
-        }
-
-        /* Méthode pour compter les chiffres dans les colonnes */
-
-        public int compterChiffresColonne()
-        {
-            int cptmax = 0;
-            int cpt = 0;
-            int i, j;
-            int numcol = 0;
-
-            for (i = 0; i < 9; i++)
-            {
-
-                for (j = 0; j < 9; j++)
-                {
-                    //comptage des chiffres != 0
-                    if (Tableau_Sudoku[j][i] != 0)
-                        cpt++;
-                }
-
-                Console.WriteLine("cpt=" + cpt);
-
-                if (cpt > cptmax)
-                {
-                    cptmax = cpt;
-                    //sauvegarde du numéro de colonne qui a le + de chiffres
-                    numcol = i;
-                }
-
-                cpt = 0;
-            }
-
-            //retour numéro de ligne qui a le plus de chiffres
-            return numcol;
-
-        }
-
-        /* Méthode pour compter les chiffres dans les régions */
-        public int[] compterChiffresRegion()
-        {
-            int cpt = 0, cptmax = 0;
-            int ligne = 0;
-            int colonne = 0;
-            int[] nb_region = new int[] {0,0};
-
-            for (int i = 0; i < 9; i++)
-            {
-                if (i % 3 == 1 && i < 9)
-                {
-                    for (ligne = 0; ligne < ligne + 3; ligne++)
-                    {
-                        for (colonne = 0; colonne < colonne + 3; colonne++)
-                        {
-                            if (Tableau_Sudoku[ligne][colonne] != 0)
-                            {
-                                cpt++;
-                            }
-                        }
-
-                        if (cpt > cptmax)
-                        {
-                            cptmax = cpt;
-                            nb_region[0] = ligne;
-                            nb_region[1] = colonne;
-                        }
-
-                        cpt = 0;
-                    }
-                }
-            }
-            return nb_region;
-        }
-        
         /* Méthode vérifiant la validité de la valeur à la position donnée */
         // On récupère la position 
         public bool estValide(int position)
