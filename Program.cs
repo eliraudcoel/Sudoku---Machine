@@ -7,9 +7,9 @@ namespace Sudoku
         static void Main(string[] args)
         {
 
-            //facile
-            
-            var grille_facile = new[]
+            // Différente définition des grilles de Sudoku
+            //facile - grille défaut
+            var grille_defaut = new[]
             {
                 new[]{6,0,0, 0,0,0, 4,0,8},
                 new[]{0,4,7, 0,5,8, 3,0,2},
@@ -24,9 +24,8 @@ namespace Sudoku
                 new[]{5,0,9, 0,0,0, 0,0,7}
             };
             
-
-            //facile - 2
-            var grille_facile2 = new[]
+            //facile
+            var grille_facile = new[]
             {
                 new[]{0,6,0, 0,0,0, 0,0,2},
                 new[]{3,9,0, 1,2,0, 7,8,6},
@@ -89,23 +88,28 @@ namespace Sudoku
                 new[]{0,0,2, 8,5,0, 0,0,0}
             };
 
+            // Affichage du titre de l'application
             Console.WriteLine("********************************************");
             Console.WriteLine("************** SUDOKU SOLVER ***************");
             Console.WriteLine("********************************************");
 
-            String solution_choisie = "";
+            String choix = "";
            
+            // On boucle sur l'application jusqu'à ce que la personne quitte => tape "q" dans l'interface
             do
             {
+                // On demande à l'utilisateur quel force il souhaite
                 Console.WriteLine("Quelle force de Sudoku voulez-vous?");
                 Console.WriteLine("Taper 1 - Facile");
                 Console.WriteLine("Taper 2 - Moyen");
                 Console.WriteLine("Taper 3 - Difficile");
                 Console.WriteLine("Taper 4 - Démoniaque");
+                // On récupère ici la force choisie
                 String force_choisie = Console.ReadLine();
 
                 int[][] grille_finale = new int[9][];
 
+                // Ici on teste la valeur entrée par l'utilisateur
                 switch (force_choisie)
                 {
                     case "1":
@@ -120,17 +124,19 @@ namespace Sudoku
                     case "4":
                         grille_finale = grille_demoniaque;
                         break;
+                        // Si il a taper un autre type de lettre on met la grille défault de type facile
                     default:
-                        grille_finale = grille_facile2;
+                        grille_finale = grille_defaut;
                         break;
                 }
 
+                // Ici, l'utilisateur choisit le type de résolution
                 Console.WriteLine("Quelle solution voulez-vous?");
                 Console.WriteLine("Taper 1 - Par solution humaine");
                 Console.WriteLine("Taper 2 - Par solution machine");
-                Console.WriteLine("Taper q - Quitter SudokuSolver");
-                solution_choisie = Console.ReadLine();
+                String solution_choisie = Console.ReadLine();
 
+                // Cas si il choisit la résolution de type humaine
                 if (solution_choisie == "1") 
                 {
                     // On définit un objet de type "Sudoku"
@@ -152,9 +158,9 @@ namespace Sudoku
                     sudokuHumain.afficherSudoku();  
                 }
 
+                // Cas si il choisit la résolution de type machine
                 if (solution_choisie == "2")
                 {
-
                     // On définit un objet de type "Sudoku"
                     var sudokuMachine = new SudokuMachine(grille_finale);
                     sudokuMachine.afficherSudoku();
@@ -174,10 +180,12 @@ namespace Sudoku
                     sudokuMachine.afficherSudoku();                
                 }
 
-            } while (solution_choisie == "q" || solution_choisie == "Q");
-            
-            // On stoppe le programme
-            Console.ReadLine();
+                // L'utiliateur peut soit quitter soit continuer
+                Console.WriteLine("Taper c - Continuer SudokuSolver");
+                Console.WriteLine("Taper q - Quitter SudokuSolver");
+                choix = Console.ReadLine();
+
+            } while (choix == "c" || choix == "C");
         }
     }
 }
